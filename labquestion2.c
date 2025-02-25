@@ -17,7 +17,6 @@ struct ListNode* reverseList(struct ListNode* head) {
     return prev;
 }
 
-// Helper function to create and print the list
 struct ListNode* createNode(int val) {
     struct ListNode* node = malloc(sizeof(struct ListNode));
     node->val = val, node->next = NULL;
