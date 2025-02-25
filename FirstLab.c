@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Definition for singly-linked list.
 struct ListNode {
     int val;
     struct ListNode *next;
@@ -22,7 +21,6 @@ struct ListNode* removeElements(struct ListNode* head, int val) {
     return dummy.next;
 }
 
-// Helper function to create a linked list (for testing)
 struct ListNode* createLinkedList(int arr[], int size) {
     struct ListNode *head = NULL;
     struct ListNode *tail = NULL;
@@ -41,7 +39,6 @@ struct ListNode* createLinkedList(int arr[], int size) {
     return head;
 }
 
-// Helper function to print a linked list (for testing)
 void printLinkedList(struct ListNode* head) {
     struct ListNode* current = head;
     while (current != NULL) {
@@ -66,7 +63,6 @@ int main() {
     printf("List after removing %d: ", valToRemove);
     printLinkedList(head);
 
-    // Clean up memory (important to avoid memory leaks)
     struct ListNode* current = head;
     while (current != NULL) {
         struct ListNode* temp = current;
