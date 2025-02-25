@@ -3,72 +3,58 @@
 
 struct ListNode {
     int val;
-    struct ListNode *next;
+    struct ListNode* next;
 };
 
 struct ListNode* removeElements(struct ListNode* head, int val) {
-    struct ListNode dummy;
-    dummy.next = head;
-    struct ListNode *current = &dummy;
+    struct ListNode dummy = {0, head}; 
+    struct ListNode* prev = &dummy;
 
-    while (current->next != NULL) {
-        if (current->next->val == val) {
-            current->next = current->next->next;
-        } else {
-            current = current->next;
+    while (head) {
+        if (head->val != val) {
+            prev->next = head;
+            prev = head;
         }
+        head = head->next;
     }
+    prev->next = NULL;
     return dummy.next;
 }
 
-struct ListNode* createLinkedList(int arr[], int size) {
-    struct ListNode *head = NULL;
-    struct ListNode *tail = NULL;
-    for (int i = 0; i < size; i++) {
-        struct ListNode *newNode = (struct ListNode*)malloc(sizeof(struct ListNode));
-        newNode->val = arr[i];
-        newNode->next = NULL;
-        if (head == NULL) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            tail->next = newNode;
-            tail = newNode;
-        }
-    }
-    return head;
+// Helper function to create a node
+struct ListNode* createNode(int val) {
+    struct ListNode* node = malloc(sizeof(struct ListNode));
+    node->val = val;
+    node->next = NULL;
+    return node;
 }
 
-void printLinkedList(struct ListNode* head) {
-    struct ListNode* current = head;
-    while (current != NULL) {
-        printf("%d ", current->val);
-        current = current->next;
+// Helper function to print the list
+void printList(struct ListNode* head) {
+    while (head) {
+        printf("%d -> ", head->val);
+        head = head->next;
     }
-    printf("\n");
+    printf("NULL\n");
 }
 
+// Main function
 int main() {
-    // Example usage
-    int arr[] = {1, 2, 6, 3, 4, 5, 6};
-    int size = sizeof(arr) / sizeof(arr[0]);
-    struct ListNode* head = createLinkedList(arr, size);
+    struct ListNode* head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(6);
+    head->next->next->next = createNode(3);
+    head->next->next->next->next = createNode(4);
+    head->next->next->next->next->next = createNode(5);
+    head->next->next->next->next->next->next = createNode(6);
 
-    printf("Original list: ");
-    printLinkedList(head);
+    printf("Original List: ");
+    printList(head);
 
-    int valToRemove = 6;
-    head = removeElements(head, valToRemove);
+    head = removeElements(head, 6);
 
-    printf("List after removing %d: ", valToRemove);
-    printLinkedList(head);
-
-    struct ListNode* current = head;
-    while (current != NULL) {
-        struct ListNode* temp = current;
-        current = current->next;
-        free(temp);
-    }
+    printf("After Removal: ");
+    printList(head);
 
     return 0;
 }
