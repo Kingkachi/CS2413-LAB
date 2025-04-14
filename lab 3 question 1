@@ -1,0 +1,26 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+/**
+ * Helper function to do recursive preorder traversal
+ */
+void traverse(struct TreeNode* root, int* result, int* index) {
+    if (!root) return;
+    result[(*index)++] = root->val;          // Visit root
+    traverse(root->left, result, index);     // Traverse left
+    traverse(root->right, result, index);    // Traverse right
+}
+
+int* preorderTraversal(struct TreeNode* root, int* returnSize) {
+    int* result = (int*)malloc(200 * sizeof(int)); // Assuming max 200 nodes
+    int index = 0;
+    traverse(root, result, &index);
+    *returnSize = index;
+    return result;
+}
